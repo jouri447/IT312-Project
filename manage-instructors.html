@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Manage Activity Leaders &amp; Instructors | Khayt Studio</title>
   <link rel="stylesheet" href="style.css">
+  <script src="manage-instructors.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -35,40 +36,9 @@
 
       <section class="panel">
         <h2>Activity Leaders &amp; Instructors <em class="hint">select members to delete</em></h2>
-        <form action="manage-instructors.html" method="post">
-          <div class="member-list">
-          <div class="member-card">
-            <input type="checkbox" id="del-ghadha" name="delete-member" value="ghadha">
-            <label for="del-ghadha">
-              <img src="images/ghadha-aldablan.svg" alt="Photo of Ghadha Aldablan" width="90" height="90">
-              <strong>Ghadha Aldablan</strong>
-              <span class="expertise">Fashion Design</span>
-            </label>
-          </div>
-          <div class="member-card">
-            <input type="checkbox" id="del-lara" name="delete-member" value="lara">
-            <label for="del-lara">
-              <img src="images/lara-almani.svg" alt="Photo of Lara Almani" width="90" height="90">
-              <strong>Lara Almani</strong>
-              <span class="expertise">Styling &amp; Personal Image</span>
-            </label>
-          </div>
-          <div class="member-card">
-            <input type="checkbox" id="del-jouri" name="delete-member" value="jouri">
-            <label for="del-jouri">
-              <img src="images/jouri-alsulaiman.svg" alt="Photo of Jouri Alsulaiman" width="90" height="90">
-              <strong>Jouri Alsulaiman</strong>
-              <span class="expertise">Textile &amp; Sustainability</span>
-            </label>
-          </div>
-          <div class="member-card">
-            <input type="checkbox" id="del-reema" name="delete-member" value="reema">
-            <label for="del-reema">
-              <img src="images/reema-alessa.svg" alt="Photo of Reema Alessa" width="90" height="90">
-              <strong>Reema Alessa</strong>
-              <span class="expertise">Fashion Illustration</span>
-            </label>
-          </div>
+        <form action="manage-instructors.html" method="post" onsubmit="return deleteMembers();">
+          <div class="member-list" id="member-list">
+            <!-- filled by manage-instructors.js from the array of objects -->
           </div>
           <p class="form-buttons">
             <input type="submit" value="Delete Selected" class="btn btn-dark">
@@ -78,7 +48,7 @@
 
       <section class="panel">
         <h2>Add New Activity Leader / Instructor <em class="hint">fill in the form to add a new member</em></h2>
-        <form class="khayt-form" action="manage-instructors.html" method="post" enctype="multipart/form-data">
+        <form class="khayt-form" action="manage-instructors.html" method="post" enctype="multipart/form-data" onsubmit="return addMember();">
           <p>
             <label for="member-name">Name</label>
             <input type="text" id="member-name" name="member-name">
