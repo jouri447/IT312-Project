@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>About Us | Khayt Studio</title>
   <link rel="stylesheet" href="style.css">
+  <script src="about-us.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -64,18 +65,18 @@
 
     <section class="join-section">
       <h2>Join Our Team!</h2>
-      <form class="khayt-form" action="#" method="post">
+      <form class="khayt-form" id="joinForm" action="#" method="post" onsubmit="return validateJoinForm();">
         <div class="form-row">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name">
         </div>
         <div class="form-row">
           <label for="photo">Photo:</label>
-          <input type="file" id="photo" name="photo">
+          <input type="file" id="photo" name="photo" accept="image/*">
         </div>
         <div class="form-row">
           <label for="dob">Date of Birth:</label>
-          <input type="date" id="dob" name="dob">
+          <input type="date" id="dob" name="dob" max="2008-12-31">
         </div>
         <div class="form-row">
           <label for="email">Email:</label>
