@@ -9,7 +9,7 @@
     document.body.classList.toggle('dark', theme === 'dark');
     var button = document.getElementById('theme-toggle');
     if (button) {
-      button.textContent = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+     button.textContent = theme === 'dark' ? '☀ Light mode' : '☾ Dark mode';
       button.setAttribute('aria-pressed', String(theme === 'dark'));
     }
   }
