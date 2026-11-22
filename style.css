@@ -1509,3 +1509,22 @@ body.dark .hero .theme-toggle {
 body.dark .hero .theme-toggle:hover {
     background-color: #344b4f;
 }
+
+/* Footer clock: place on its own centered row below the logo and brand name. */
+.footer-brand > .footer-clock {
+  order: 3;
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 12px 0 4px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.footer-brand > .footer-clock time {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+.footer-brand > p:last-child {
+  order: 4;
+  flex: 0 0 100%;
+  text-align: center;
+}
