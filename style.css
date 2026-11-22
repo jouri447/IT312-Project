@@ -1473,3 +1473,34 @@ body.dark .offering-price, body.dark .offering-card .bookmark-btn { color: #e8ee
 body.dark .offering-card .btn-light, body.dark .home-offering h3 a { color: #e8eeee; }
 body.dark .site-header, body.dark .site-footer, body.dark .offering-card,
 body.dark .home-offering { border-color: #425357; }
+
+.hero {
+    position: relative;
+}
+
+.hero .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 12px auto;
+    padding: 7px 13px;
+    border: 1px solid #a16c4c;
+    border-radius: 30px;
+    background-color: transparent;
+    color: #17383d;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.hero .theme-toggle:hover {
+    background-color: #eae0d6;
+}
+
+body.dark .hero .theme-toggle {
+    color: #f7ede1;
+    border-color: #d8b99e;
+}
+
+body.dark .hero .theme-toggle:hover {
+    background-color: #344b4f;
+}
