@@ -711,8 +711,8 @@ main > .khayt-form { width: 100%; }
 }
 
 .offerings-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 15px;
   list-style-type: none;
   margin: 0;
@@ -720,7 +720,7 @@ main > .khayt-form { width: 100%; }
 }
 
 .offering-card {
-    flex: 1 1 250px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     padding: 12px;
@@ -1378,6 +1378,11 @@ body.dark .offering-extra .extra-price { color: #e8eeee; }
   .hero h1 { font-size: 2.2rem; }
 }
 
+/* Club Offerings: two equal columns on tablets */
+@media (min-width: 701px) and (max-width: 1050px) {
+  .offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* Phones */
 @media (max-width: 700px) {
 
@@ -1434,7 +1439,7 @@ body.dark .offering-extra .extra-price { color: #e8eeee; }
 
   .offerings-tools select { width: 100%; margin-right: 0; }
 
-  .offering-card { flex: 1 1 100%; }
+  .offerings-grid { grid-template-columns: 1fr; }
 
   /* Footer: the three columns stack */
   .site-footer {
