@@ -1456,3 +1456,20 @@ body.dark .offering-extra .extra-price { color: #e8eeee; }
 
   .back-to-top { right: 12px; bottom: 12px; }
 }
+
+/* Phase 3 finishing touches: improve narrow-screen usability */
+@media (max-width: 700px) {
+  .site-header, .main-nav, .main-nav ul, .home-bottom, .style-month, .style-showcase { min-width: 0; }
+  .main-nav a { display: inline-block; padding: 5px 0; }
+  .style-card { min-width: 0; }
+  .style-card p { overflow-wrap: anywhere; }
+  .offerings-tools { gap: 8px; }
+  .offerings-tools input, .offerings-tools select { margin: 0; min-width: 0; }
+  .offering-footer { gap: 8px; }
+}
+/* Dark theme: maintain readable text in the style carousel and links */
+body.dark .style-card p, body.dark .review p, body.dark .reviewer,
+body.dark .offering-price, body.dark .offering-card .bookmark-btn { color: #e8eeee; }
+body.dark .offering-card .btn-light, body.dark .home-offering h3 a { color: #e8eeee; }
+body.dark .site-header, body.dark .site-footer, body.dark .offering-card,
+body.dark .home-offering { border-color: #425357; }
