@@ -1262,3 +1262,197 @@ main > .khayt-form { width: 100%; }
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* ==========================================================
+   Phase 3 (Lara): Home Page + Club Offerings
+   Responsive design, two themes, Back to Top, footer clock
+   ========================================================== */
+
+/* Images never overflow their container */
+img { max-width: 100%; }
+
+/* Theme toggle button (Home Page hero) */
+.theme-toggle { margin-top: 20px; }
+
+/* Footer clock */
+.footer-clock {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+}
+
+/* Back to Top button: hidden until the user scrolls down */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: none;
+  padding: 10px 16px;
+  border: 1px solid #a16c4c;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #ffffff;
+  background-color: #a16c4c;
+  cursor: pointer;
+}
+
+.back-to-top:hover { background-color: #17383d; }
+
+/* ---------- Theme 2: dark ---------- */
+/* Theme 1 (light) is the default look above. The dark theme gives a
+   different background colour and a different font colour. */
+
+body.dark {
+  color: #e8eeee;
+  background-color: #11191b;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark .hero h1,
+body.dark .home-offerings h2,
+body.dark .reviews h2,
+body.dark .style-month h2,
+body.dark .brand-text,
+body.dark .main-nav a,
+body.dark .home-offering h3 a,
+body.dark .offering-card h2,
+body.dark .site-footer h2,
+body.dark .btn-light,
+body.dark .offerings-tools input,
+body.dark .offerings-tools select {
+  color: #e8eeee;
+}
+
+body.dark .main-nav a.current,
+body.dark .main-nav a:hover { color: #d9a77f; }
+
+body.dark a:link { color: #d9a77f; }
+body.dark a:visited { color: #c99872; }
+body.dark a:hover { color: #ffffff; }
+
+body.dark .page-intro,
+body.dark .hero p,
+body.dark .home-offering p,
+body.dark .offering-desc,
+body.dark .review-offering,
+body.dark .footer-brand p,
+body.dark .brand-sub {
+  color: #b9c6c7;
+}
+
+body.dark .site-header,
+body.dark .home-offering,
+body.dark .offering-card,
+body.dark .style-card,
+body.dark .btn-light,
+body.dark .offerings-tools input,
+body.dark .offerings-tools select,
+body.dark .bookmark-btn {
+  background-color: #1b2629;
+}
+
+body.dark .site-footer,
+body.dark .style-showcase { background-color: #162023; }
+
+body.dark .review { background-color: #1f2d30; }
+
+body.dark .home-offering:hover,
+body.dark .offering-card:hover { background-color: #243236; }
+
+body.dark .home-offering .offering-extra {
+  color: #e8eeee;
+  background-color: #243236;
+}
+
+body.dark .offering-extra .extra-price { color: #e8eeee; }
+
+/* ---------- Responsive design ---------- */
+
+/* Tablets and small laptops */
+@media (max-width: 900px) {
+  .site-header { padding: 14px 20px; }
+  .main-nav li { margin-left: 18px; }
+  main { padding: 20px 20px 40px; }
+  .hero h1 { font-size: 2.2rem; }
+}
+
+/* Phones */
+@media (max-width: 700px) {
+
+  /* Header and navigation: stack the logo above the menu,
+     and let the menu items wrap */
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px;
+  }
+
+  .main-nav { width: 100%; margin-top: 10px; }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .main-nav li { margin: 0 16px 8px 0; }
+
+  .breadcrumb { padding: 5px 16px; }
+
+  main { padding: 16px 16px 32px; }
+
+  /* Home Page */
+  .hero { padding: 28px 0 26px; }
+  .hero h1 { font-size: 1.8rem; }
+
+  .home-offering { flex: 1 1 100%; }
+
+  .reviews {
+    flex: 1 1 100%;
+    padding: 10px 0 20px;
+    border-right: none;
+    border-bottom: 1px solid #d9cfc5;
+  }
+
+  .style-month {
+    flex: 1 1 100%;
+    padding: 10px 0 20px;
+  }
+
+  .style-card img {
+    flex: 0 0 100%;
+    width: 100%;
+    height: auto;
+    margin: 0 0 12px;
+  }
+
+  .review-offering { margin-left: 0; flex: 0 0 100%; }
+
+  /* Club Offerings */
+  .offerings-tools input { width: 100%; }
+
+  .offerings-tools select { width: 100%; margin-right: 0; }
+
+  .offering-card { flex: 1 1 100%; }
+
+  /* Footer: the three columns stack */
+  .site-footer {
+    flex-direction: column;
+    padding: 20px 16px;
+  }
+
+  .footer-col {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .footer-brand {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #d9c6b5;
+    border-bottom: 1px solid #d9c6b5;
+  }
+
+  .back-to-top { right: 12px; bottom: 12px; }
+}
