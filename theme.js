@@ -1,25 +1,25 @@
-/* Shared theme: load on every page to keep the chosen theme across navigation. */
-(function () {
-  var storageKey = 'khayt-theme';
-  function savedTheme() {
-    try { return localStorage.getItem(storageKey) === 'dark' ? 'dark' : 'light'; }
-    catch (error) { return 'light'; }
+/* Shared theme. The script is included at the end of the HTML body. */
+var themeStorageKey = 'khayt-theme';
+function applyTheme(theme) {
+  // Keep any other body classes intact.
+  var classes = document.body.className.replace(/\bdark\b/g, '').trim();
+  document.body.className = theme == 'dark' ? (classes + ' dark').trim() : classes;
+  var button = document.getElementById('theme-toggle');
+  if (button) {
+    button.textContent = theme == 'dark' ? '☀ Light mode' : '☾ Dark mode';
+    button.setAttribute('aria-pressed', String(theme == 'dark')); // accessibility
   }
-  function applyTheme(theme) {
-    document.body.classList.toggle('dark', theme === 'dark');
-    var button = document.getElementById('theme-toggle');
-    if (button) {
-     button.textContent = theme === 'dark' ? '☀ Light mode' : '☾ Dark mode';
-      button.setAttribute('aria-pressed', String(theme === 'dark'));
-    }
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    applyTheme(savedTheme());
-    var button = document.getElementById('theme-toggle');
-    if (button) button.addEventListener('click', function () {
-      var next = document.body.classList.contains('dark') ? 'light' : 'dark';
-      try { localStorage.setItem(storageKey, next); } catch (error) { /* storage unavailable */ }
-      applyTheme(next);
-    });
-  });
-})();
+}
+var selectedTheme = 'light';
+try { if (localStorage.getItem(themeStorageKey) == 'dark') selectedTheme = 'dark'; }
+catch (error) { /* storage unavailable */ }
+applyTheme(selectedTheme);
+var themeButton = document.getElementById('theme-toggle');
+if (themeButton) {
+  themeButton.onclick = function () {
+    selectedTheme = document.body.className.indexOf('dark') == -1 ? 'dark' : 'light';
+    try { localStorage.setItem(themeStorageKey, selectedTheme); }
+    catch (error) { /* storage unavailable */ }
+    applyTheme(selectedTheme);
+  };
+}
