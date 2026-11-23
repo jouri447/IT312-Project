@@ -1579,3 +1579,25 @@ body.dark .notification-toggle img { filter: brightness(0) invert(1); }
 body.dark .offering-card .bookmark-btn { background: #1b2629; border-color: #425357; }
 body.dark .offering-card .bookmark-btn.is-saved { background: #a16c4c; border-color: #a16c4c; }
 body.dark .favorites-toast { background: #d9a77f; color: #11191b; }
+
+/* Bookmark icon only: no box, fill the symbol itself on save. */
+.offering-card .bookmark-btn,
+body.dark .offering-card .bookmark-btn,
+.offering-card .bookmark-btn.is-saved,
+body.dark .offering-card .bookmark-btn.is-saved {
+  flex: 0 0 auto; width: 25px; height: 32px; padding: 0; margin: 4px 0 0 5px;
+  border: 0; border-radius: 0; box-shadow: none; background: transparent;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #80604d; cursor: pointer;
+}
+.offering-card .bookmark-btn .bookmark-icon {
+  display: block; width: 21px; height: 21px; overflow: visible;
+  fill: transparent; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round;
+  transition: fill .15s ease, color .15s ease, transform .15s ease;
+}
+.offering-card .bookmark-btn.is-saved .bookmark-icon { fill: currentColor; }
+.offering-card .bookmark-btn:hover { opacity: 1; color: #a16c4c; }
+.offering-card .bookmark-btn:hover .bookmark-icon { transform: scale(1.1); }
+body.dark .offering-card .bookmark-btn { color: #d9b99e; }
+body.dark .offering-card .bookmark-btn.is-saved { color: #d9a77f; }
+.offering-card .bookmark-btn:focus-visible { outline: 2px solid #a16c4c; outline-offset: 3px; border-radius: 3px; }
