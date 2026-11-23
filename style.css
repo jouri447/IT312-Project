@@ -1528,3 +1528,54 @@ body.dark .hero .theme-toggle:hover {
   flex: 0 0 100%;
   text-align: center;
 }
+
+
+/* Interactive notification bell — desktop and mobile */
+.main-nav .nav-bell { position: relative; }
+.notification-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; padding: 7px; cursor: pointer;
+  border: 1px solid transparent; border-radius: 50%; background: transparent;
+}
+.notification-toggle:hover, .notification-toggle:focus-visible { background: #efe6dd; border-color: #d9c6b5; }
+.notification-toggle img { width: 22px; height: 22px; }
+.notification-panel {
+  position: absolute; z-index: 50; top: calc(100% + 8px); right: 0;
+  width: min(300px, calc(100vw - 32px)); padding: 18px;
+  background: #fffdf9; color: #17383d; border: 1px solid #d9c6b5;
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.14);
+}
+.notification-panel[hidden], .favorites-toast[hidden] { display: none !important; }
+.notification-panel strong { display: block; border-bottom: 1px solid #d9c6b5; padding-bottom: 10px; }
+.notification-panel p { margin: 14px 0 0; font-size: .9rem; color: #555; }
+@media (max-width: 700px) {
+  .main-nav .nav-bell { margin-right: 0; }
+  .notification-panel { right: auto; left: 0; max-width: calc(100vw - 32px); }
+}
+body.dark .notification-panel { background: #1b2629; color: #e8eeee; border-color: #425357; }
+body.dark .notification-panel p { color: #b9c6c7; }
+body.dark .notification-toggle:hover, body.dark .notification-toggle:focus-visible { background: #344b4f; }
+body.dark .notification-toggle img { filter: brightness(0) invert(1); }
+
+/* Interactive bookmark: colored when saved, without resizing cards */
+.offering-card .bookmark-btn {
+  flex: 0 0 auto; width: 38px; height: 38px; margin-top: 6px;
+  display: inline-flex; justify-content: center; align-items: center;
+  padding: 7px; cursor: pointer; border: 1px solid #d9c6b5;
+  border-radius: 8px; background: #fffdf9;
+}
+.offering-card .bookmark-btn img { width: 20px; height: 20px; margin: 0; }
+.offering-card .bookmark-btn.is-saved { background: #a16c4c; border-color: #a16c4c; }
+.offering-card .bookmark-btn.is-saved img { filter: brightness(0) invert(1); }
+.offering-card .bookmark-btn:hover { opacity: 1; border-color: #a16c4c; }
+.offering-card .bookmark-btn:focus-visible, .notification-toggle:focus-visible { outline: 2px solid #a16c4c; outline-offset: 2px; }
+.favorites-toast {
+  position: fixed; bottom: 22px; right: 22px; z-index: 100;
+  max-width: min(360px, calc(100vw - 32px)); padding: 12px 18px;
+  background: #17383d; color: white; border-radius: 9px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.2); font-size: .9rem;
+}
+@media (max-width: 700px) { .favorites-toast { right: 16px; bottom: 16px; } }
+body.dark .offering-card .bookmark-btn { background: #1b2629; border-color: #425357; }
+body.dark .offering-card .bookmark-btn.is-saved { background: #a16c4c; border-color: #a16c4c; }
+body.dark .favorites-toast { background: #d9a77f; color: #11191b; }
