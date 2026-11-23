@@ -1601,3 +1601,89 @@ body.dark .offering-card .bookmark-btn.is-saved {
 body.dark .offering-card .bookmark-btn { color: #d9b99e; }
 body.dark .offering-card .bookmark-btn.is-saved { color: #d9a77f; }
 .offering-card .bookmark-btn:focus-visible { outline: 2px solid #a16c4c; outline-offset: 3px; border-radius: 3px; }
+
+/* Dark theme for the other pages (forms, tables, cards and dashboards).
+   Uses the same dark colours as the Home and Club Offerings dark theme above. */
+body.dark .team-card,
+body.dark .khayt-form,
+body.dark .panel,
+body.dark .member-card,
+body.dark .participation-card,
+body.dark .request-form,
+body.dark .evaluation-form,
+body.dark .profile-table,
+body.dark .offerings-table,
+body.dark .profile-table td,
+body.dark .offerings-table td {
+  background-color: #1b2629;
+  border-color: #425357;
+  color: #e8eeee;
+}
+
+body.dark .profile-table th,
+body.dark .offerings-table th {
+  background-color: #23383c;
+  border-color: #425357;
+  color: #e8eeee;
+}
+
+body.dark .offerings-table tbody tr:hover td { background-color: #23383c; }
+
+body.dark .panel h2,
+body.dark .member-card strong,
+body.dark .participation-card h3,
+body.dark .profile-table strong,
+body.dark label,
+body.dark legend { color: #e8eeee; }
+
+body.dark .about-intro,
+body.dark .hint,
+body.dark .expertise,
+body.dark .participation-card p { color: #b9c6c7; }
+
+body.dark input,
+body.dark select,
+body.dark textarea,
+body.dark .khayt-form input[type="text"],
+body.dark .khayt-form input[type="email"],
+body.dark .khayt-form input[type="number"],
+body.dark .khayt-form input[type="date"],
+body.dark .khayt-form input[type="file"] {
+  background-color: #11191b;
+  border-color: #425357;
+  color: #e8eeee;
+}
+
+/* Brown buttons keep white text (the dark link colour made it brown on brown) */
+body.dark a.btn-dark:link,
+body.dark a.btn-dark:visited,
+body.dark .dashboard-actions a:link,
+body.dark .dashboard-actions a:visited { color: #ffffff; }
+
+/* Light buttons become dark boxes */
+body.dark .details-button,
+body.dark .evaluation-cancel,
+body.dark .request-buttons button[type="reset"] {
+  background-color: #1b2629;
+  border-color: #425357;
+  color: #d9a77f;
+}
+
+/* Review stars are easier to see on the dark background */
+body.dark .stars { color: #f3a6c8; }
+
+/* Offering Evaluation on phones: put the rating stars under the "Rating" title
+   so the page does not scroll sideways. */
+@media (max-width: 768px) {
+  .rating-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .rating-row legend {
+    float: none;
+    width: auto;
+  }
+  .evaluation-row > label {
+    white-space: normal;
+  }
+}

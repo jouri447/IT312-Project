@@ -26,5 +26,5 @@ form.onsubmit = function(event) {
     }
 
     form.reset();
-    document.getElementById("evaluationReturn").style.display = "block";
+    window.location.href = "member-dashboard.html";
 };

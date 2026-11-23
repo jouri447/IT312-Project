@@ -2,6 +2,43 @@
 // Checks the form, then saves the offering in local storage
 // as an array of objects so ALL added offerings are kept.
 
+var instructorNames = {
+  ghadha: "Ghadha Aldablan",
+  lara: "Lara Almani",
+  jouri: "Jouri Alsulaiman",
+  reema: "Reema Alessa"
+};
+
+// Fill the instructor list with the people on the Manage Leaders & Instructors page.
+// If that list was never changed, the four instructors already in the HTML are kept.
+function loadInstructors() {
+  var members = JSON.parse(localStorage.getItem("members"));
+  if (members == null) {
+    return;
+  }
+
+  var options = "<option value=\"\">-- Select an instructor --</option>";
+  for (var i = 0; i < members.length; i++) {
+    options += "<option value=\"" + members[i].name + "\">" + members[i].name + "</option>";
+  }
+  document.getElementById("offering-instructor").innerHTML = options;
+}
+
+window.onload = loadInstructors;
+
+// Full name of the selected instructor
+function getInstructorName(value) {
+  if (instructorNames[value]) {
+    return instructorNames[value];
+  }
+  return value;
+}
+
+// true if the text is empty or only spaces
+function isEmpty(text) {
+  return text.search(/^\s*$/) != -1;
+}
+
 function validateOffering() {
   var name = document.getElementById("offering-name").value;
   var description = document.getElementById("offering-description").value;
@@ -13,18 +50,18 @@ function validateOffering() {
   var errors = "";
 
   // Offering name: not empty and cannot start with a number
-  if (name.trim() == "") {
+  if (isEmpty(name)) {
     errors += "- Offering Name is missing.\n";
-  } else if (name.search(/^\d/) != -1) {
+  } else if (name.search(/^\s*\d/) != -1) {
     errors += "- Offering Name cannot start with a number.\n";
   }
 
-  if (description.trim() == "") {
+  if (isEmpty(description)) {
     errors += "- Description is missing.\n";
   }
 
   // Price: not empty and must be a number (0 or more)
-  if (price.trim() == "") {
+  if (isEmpty(price)) {
     errors += "- Price is missing (it must be a number, enter 0 if free).\n";
   } else if (isNaN(price) || parseFloat(price) < 0) {
     errors += "- Price must be a number of 0 or more.\n";
@@ -59,11 +96,11 @@ function validateOffering() {
 
   // Add the new offering as an object
   var newOffering = {
-    name: name.trim(),
-    description: description.trim(),
+    name: name,
+    description: description,
     price: parseFloat(price),
     date: date,
-    instructor: instructor.options[instructor.selectedIndex].text,
+    instructor: getInstructorName(instructor.value),
     image: image.substring(image.lastIndexOf("\\") + 1)
   };
   offerings.push(newOffering);

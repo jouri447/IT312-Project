@@ -19,7 +19,15 @@
         <li><a href="club-offerings.html">Club Offerings</a></li>
         <li><a href="manager-dashboard.html" class="current">Manager Dashboard</a></li>
         <li><a href="member-dashboard.html">Member Dashboard</a></li>
-        <li class="nav-bell"><img src="images/bell.svg" alt="Notifications" width="22" height="22"></li>
+        <li class="nav-bell">
+          <button type="button" class="notification-toggle" aria-label="Notifications">
+            <img src="images/bell.svg" alt="" width="22" height="22">
+          </button>
+          <div class="notification-panel" id="notification-panel" style="display: none;">
+            <strong>Notifications</strong>
+            <p>No notifications yet.</p>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -82,6 +90,7 @@
     <div class="footer-col footer-brand">
       <img src="images/khayt-logo.jpg" alt="Khayt Studio logo" width="140" height="70">
       <p class="brand-text">KHAYT STUDIO <span class="brand-sub">FASHION CLUB</span></p>
+      <p class="footer-clock"><time id="footer-clock">00:00:00</time></p>
       <p><small>Copyright &copy; 2026 Khayt Studio. All rights reserved.</small></p>
     </div>
     <section class="footer-col">
@@ -90,5 +99,8 @@
       <p><img src="images/location.svg" alt="Location" width="20" height="20" class="contact-icon">Riyadh, Saudi Arabia</p>
     </section>
   </footer>
+  <script src="theme.js"></script>
+  <script src="notifications.js"></script>
+  <script src="clock.js"></script>
 </body>
 </html>

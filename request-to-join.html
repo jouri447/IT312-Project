@@ -18,7 +18,15 @@
         <li><a href="club-offerings.html">Club Offerings</a></li>
         <li><a href="manager-dashboard.html">Manager Dashboard</a></li>
         <li><a href="member-dashboard.html" class="current">Member Dashboard</a></li>
-        <li class="nav-bell"><img src="images/bell.svg" alt="Notifications" width="22" height="22"></li>
+        <li class="nav-bell">
+          <button type="button" class="notification-toggle" aria-label="Notifications">
+            <img src="images/bell.svg" alt="" width="22" height="22">
+          </button>
+          <div class="notification-panel" id="notification-panel" style="display: none;">
+            <strong>Notifications</strong>
+            <p>No notifications yet.</p>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -46,7 +54,7 @@
 
             <label for="offering">Select an offering *</label>
 
-            <select id="offering" name="offering" required>
+            <select id="offering" name="offering">
               <option value="">-- Select an offering --</option>
               <option value="fashion-illustration">Fashion Illustration Workshop</option>
               <option value="sustainable-fashion">Sustainable Fashion Course</option>
@@ -59,7 +67,7 @@
 
             <label for="fullname">Full Name *</label>
 
-            <input type="text" id="fullname" name="fullname" required>
+            <input type="text" id="fullname" name="fullname">
 
         </div>
           <div class="request-row">
@@ -68,7 +76,7 @@
 
             <input type="date" id="preferred-date"
 
-                   name="preferred-date" required>
+                   name="preferred-date">
 
         </div>
 
@@ -108,6 +116,7 @@
     <div class="footer-col footer-brand">
       <img src="images/khayt-logo.jpg" alt="Khayt Studio logo" width="140" height="70">
       <p class="brand-text">KHAYT STUDIO <span class="brand-sub">FASHION CLUB</span></p>
+      <p class="footer-clock"><time id="footer-clock">00:00:00</time></p>
       <p><small>Copyright &copy; 2026 Khayt Studio. All rights reserved.</small></p>
     </div>
     <section class="footer-col">
@@ -117,5 +126,8 @@
     </section>
   </footer>
 <script src="request-to-join.js"></script>
+  <script src="theme.js"></script>
+  <script src="notifications.js"></script>
+  <script src="clock.js"></script>
 </body>
 </html>

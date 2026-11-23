@@ -1,5 +1,8 @@
 var form = document.getElementById("requestForm");
 
+// Requests are kept only while the member stays on this page
+var requests = [];
+
 form.onsubmit = function(event) {
     event.preventDefault();
 
@@ -7,14 +10,44 @@ form.onsubmit = function(event) {
     var fullName = document.getElementById("fullname").value;
     var preferredDate = document.getElementById("preferred-date").value;
     var message = document.getElementById("message").value;
+
+    // Check the inputs and explain what is missing
+    var errors = "";
+    if (offering == "") {
+        errors += "- Please select an offering.\n";
+    }
+    if (fullName.trim() == "") {
+        errors += "- Please enter your full name.\n";
+    } else if (/[0-9]/.test(fullName)) {
+        errors += "- Name cannot contain numbers.\n";
+    } else if (/[?!@]/.test(fullName)) {
+        errors += "- Name cannot contain characters such as ?, ! or @.\n";
+    } else if (!/^\s*[A-Za-z]+(\s+[A-Za-z]+)+\s*$/.test(fullName)) {
+        errors += "- Please enter your full name (first and last name).\n";
+    }
+    if (preferredDate == "") {
+        errors += "- Please choose a preferred date.\n";
+    } else {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var parts = preferredDate.split("-");
+        var chosen = new Date(parts[0], parts[1] - 1, parts[2]);
+        if (chosen <= today) {
+            errors += "- Preferred date must be a future date.\n";
+        }
+    }
+    if (errors != "") {
+        alert("Please fix the following:\n\n" + errors);
+        return;
+    }
+
+    var offeringList = document.getElementById("offering");
     var request = {
-    offering: offering,
+    offering: offeringList.options[offeringList.selectedIndex].text,
     fullName: fullName,
     preferredDate: preferredDate,
     message: message };
-    var requests = JSON.parse(localStorage.getItem("requests")) || [];
     requests.push(request);
-    localStorage.setItem("requests", JSON.stringify(requests));
     displayRequests();
 
     var addAnother = confirm(
@@ -30,13 +63,11 @@ if (addAnother == true) {
     document.getElementById("preferred-date").value = "";
     document.getElementById("message").value = "";
 } else {
-    document.getElementById("requestsList").innerHTML +=
-        '<p><a href="member-dashboard.html">Return to Member Dashboard</a></p>';
+    window.location.href = "member-dashboard.html";
 }
 };
 
 function displayRequests() {
-    var requests = JSON.parse(localStorage.getItem("requests")) || [];
     var list = document.getElementById("requestsList");
 
     list.innerHTML = "<h2>Submitted Requests</h2>";

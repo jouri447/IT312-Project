@@ -47,7 +47,7 @@ function showMembers() {
 }
 
 function deleteMembers() {
-  var boxes = document.getElementsByName("delete-member");
+  var boxes = document.getElementById("member-list").getElementsByTagName("input");
   var selected = 0;
 
   for (var i = 0; i < boxes.length; i++) {
@@ -77,6 +77,19 @@ function deleteMembers() {
   return false;
 }
 
+var expertiseNames = {
+  "fashion-design": "Fashion Design",
+  "styling": "Styling & Personal Image",
+  "sustainability": "Textile & Sustainability",
+  "illustration": "Fashion Illustration",
+  "sewing": "Sewing & Tailoring"
+};
+
+// true if the text is empty or only spaces
+function isEmpty(text) {
+  return text.search(/^\s*$/) != -1;
+}
+
 function addMember() {
   var name = document.getElementById("member-name").value;
   var photo = document.getElementById("member-photo").value;
@@ -88,9 +101,9 @@ function addMember() {
 
   var errors = "";
 
-  if (name.trim() == "") {
+  if (isEmpty(name)) {
     errors += "- Name is missing.\n";
-  } else if (name.search(/^\d/) != -1) {
+  } else if (name.search(/^\s*\d/) != -1) {
     errors += "- Name cannot start with a number.\n";
   }
 
@@ -104,7 +117,7 @@ function addMember() {
     errors += "- Date of Birth is missing.\n";
   }
 
-  if (email.trim() == "") {
+  if (isEmpty(email)) {
     errors += "- Email is missing.\n";
   } else if (email.search(/^[\w.\-]+@[\w\-]+(\.[\w\-]+)+$/) == -1) {
     errors += "- Email is not valid (example: name@example.com).\n";
@@ -114,13 +127,13 @@ function addMember() {
     errors += "- Please select an Area of Expertise.\n";
   }
 
-  if (skills.trim() == "") {
+  if (isEmpty(skills)) {
     errors += "- Skills are missing.\n";
   }
 
-  if (education.trim() == "") {
+  if (isEmpty(education)) {
     errors += "- Education is missing.\n";
-  } else if (education.search(/^\d/) != -1) {
+  } else if (education.search(/^\s*\d/) != -1) {
     errors += "- Education cannot start with a number.\n";
   }
 
@@ -132,8 +145,8 @@ function addMember() {
   // Add the new person to the array (a placeholder photo is used,
   // and no profile page is needed)
   var newMember = {
-    name: name.trim(),
-    expertise: expertise.options[expertise.selectedIndex].text,
+    name: name,
+    expertise: expertiseNames[expertise.value],
     photo: "images/instructor-placeholder.svg"
   };
   members.push(newMember);
