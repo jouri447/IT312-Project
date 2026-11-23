@@ -21,7 +21,15 @@
         <li><a href="club-offerings.html">Club Offerings</a></li>
         <li><a href="manager-dashboard.html">Manager Dashboard</a></li>
         <li><a href="member-dashboard.html">Member Dashboard</a></li>
-        <li class="nav-bell"><img src="images/bell.svg" alt="Notifications" width="22" height="22"></li>
+        <li class="nav-bell">
+          <button type="button" class="notification-toggle" aria-label="Notifications" aria-expanded="false" aria-controls="notification-panel">
+            <img src="images/bell.svg" alt="" width="22" height="22">
+          </button>
+          <div class="notification-panel" id="notification-panel" hidden>
+            <strong>Notifications</strong>
+            <p>No notifications yet.</p>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
