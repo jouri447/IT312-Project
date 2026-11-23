@@ -24,6 +24,9 @@ function setUpOfferings() {
   shuffleOfferings();
   showOfferings();
 
+  setUpNotifications();
+  setUpFavorites();
+
   select.onchange = function () {
     sortOfferings(select.value);
     showOfferings();
@@ -73,59 +76,84 @@ function sortOfferings(choice) {
   }
 }
 
-/* Notification dropdown: works on both Home and Club Offerings. */
-document.addEventListener('DOMContentLoaded', function () {
-  var bell = document.querySelector('.notification-toggle');
-  var panel = document.getElementById('notification-panel');
-  if (!bell || !panel) return;
-  function closePanel() { panel.hidden = true; bell.setAttribute('aria-expanded', 'false'); }
-  bell.addEventListener('click', function (event) {
-    event.stopPropagation();
-    var opening = !panel.hidden;
-    panel.hidden = opening;
-    bell.setAttribute('aria-expanded', String(!opening));
-  });
-  document.addEventListener('click', function (event) {
-    if (!panel.contains(event.target) && !bell.contains(event.target)) closePanel();
-  });
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') { closePanel(); bell.focus(); }
-  });
-});
 
-/* Save offerings by their names, so sorting/shuffling never changes favorites. */
-document.addEventListener('DOMContentLoaded', function () {
+/* Notifications: DOM and mouse events from Lecture 11. */
+function setUpNotifications() {
+  var bells = document.getElementsByClassName('notification-toggle');
+  var panel = document.getElementById('notification-panel');
+  if (bells.length == 0 || !panel) return;
+  var bell = bells[0];
+  bell.onclick = function () {
+    panel.hidden = !panel.hidden;
+    bell.setAttribute('aria-expanded', String(!panel.hidden)); // accessibility
+  };
+  document.onclick = function (event) {
+    var node = event.target;
+    while (node != null) {
+      if (node == bell || node == panel) return;
+      node = node.parentNode;
+    }
+    panel.hidden = true;
+    bell.setAttribute('aria-expanded', 'false');
+  };
+  document.onkeydown = function (event) {
+    if (event.key == 'Escape') {
+      panel.hidden = true;
+      bell.setAttribute('aria-expanded', 'false');
+      bell.focus();
+    }
+  };
+}
+
+/* Favorites: DOM, loops, and localStorage from Lectures 9-11. */
+function setUpFavorites() {
   var storageKey = 'khayt-favorite-offerings';
-  var buttons = document.querySelectorAll('.offering-card .bookmark-btn');
+  var cards = document.getElementsByClassName('offering-card');
   var toast = document.getElementById('favorites-message');
   var favorites = [];
   var toastTimer;
   try {
     var stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(stored)) favorites = stored.filter(function (x) { return typeof x === 'string'; });
+    if (Array.isArray(stored)) favorites = stored;
   } catch (error) { favorites = []; }
-  function render(button, saved, name) {
-    button.classList.toggle('is-saved', saved);
-    button.setAttribute('aria-pressed', String(saved));
-    button.setAttribute('aria-label', (saved ? 'Remove ' : 'Save ') + name + (saved ? ' from favorites' : ' to favorites'));
+
+  function findFavorite(name) {
+    for (var j = 0; j < favorites.length; j++) {
+      if (favorites[j] == name) return j;
+    }
+    return -1;
+  }
+  function showSaved(button, name) {
+    var saved = findFavorite(name) != -1;
+    button.className = saved ? 'bookmark-btn is-saved' : 'bookmark-btn';
+    button.setAttribute('aria-pressed', String(saved)); // accessibility
+    button.setAttribute('aria-label', (saved ? 'Remove ' : 'Save ') + name +
+      (saved ? ' from favorites' : ' to favorites')); // accessibility
     button.title = saved ? 'Remove from favorites' : 'Save to favorites';
   }
-  buttons.forEach(function (button) {
-    var card = button.closest('.offering-card');
-    var name = card.querySelector('h2').textContent.trim();
-    render(button, favorites.includes(name), name);
-    button.addEventListener('click', function () {
-      var saved = favorites.includes(name);
-      if (saved) favorites = favorites.filter(function (x) { return x !== name; });
+  function connectButton(button, name) {
+    showSaved(button, name);
+    button.onclick = function () {
+      var index = findFavorite(name);
+      var wasSaved = index != -1;
+      if (wasSaved) favorites.splice(index, 1);
       else favorites.push(name);
-      try { localStorage.setItem(storageKey, JSON.stringify(favorites)); } catch (error) { /* storage blocked */ }
-      render(button, !saved, name);
+      try { localStorage.setItem(storageKey, JSON.stringify(favorites)); }
+      catch (error) { /* storage may be disabled */ }
+      showSaved(button, name);
       if (toast) {
-        toast.textContent = saved ? name + ' removed from favorites.' : name + ' added to favorites!';
+        toast.textContent = name + (wasSaved ? ' removed from favorites.' : ' added to favorites!');
         toast.hidden = false;
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function () { toast.hidden = true; }, 3000);
       }
-    });
-  });
-});
+    };
+  }
+  for (var i = 0; i < cards.length; i++) {
+    var buttons = cards[i].getElementsByClassName('bookmark-btn');
+    var headings = cards[i].getElementsByTagName('h2');
+    if (buttons.length > 0 && headings.length > 0) {
+      connectButton(buttons[0], headings[0].textContent.trim());
+    }
+  }
+}
